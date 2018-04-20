@@ -28,19 +28,16 @@ export default class GameView extends EventEmitter {
   }
 
   setViewCoordinates (screen_data: IStateScreenData) {
-    let view_x, view_y = 0;
-
-    if (this.view_coordinates) {
-      view_x = this.view_coordinates.view_x;
-      view_y = this.view_coordinates.view_y;
-    }
-
-    this.view_coordinates = {
-      view_height: screen_data.height,
-      view_width: screen_data.width,
-      view_x: view_x,
-      view_y: view_y
-    };
+    this.view_coordinates = Object.assign({}, this.view_coordinates || 
+      {
+        view_x: 0,
+        view_y: 0
+      }, 
+      {
+        view_height: screen_data.height,
+        view_width: screen_data.width
+      }
+    );
 
     this.emit('updateCoordinates', this.view_coordinates);
   }
